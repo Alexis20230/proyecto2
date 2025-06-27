@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Security Headers Checker</title>
+</head>
+<body>
+  <h1>🔐 Verifica las cabeceras de seguridad de una web</h1>
+  <input type="text" id="urlInput" placeholder="https://example.com" size="40" />
+  <button onclick="checkHeaders()">Verificar</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function checkHeaders() {
+      const url = document.getElementById('urlInput').value;
+      const output = document.getElementById('output');
+      output.textContent = "Verificando...\n";
+
+      try {
+        const res = await fetch('https://cors-anywhere.herokuapp.com/' + url);
+        const headers = [...res.headers.entries()];
+        output.textContent = headers.map(h => h[0] + ': ' + h[1]).join('\n');
+      } catch (err) {
+        output.textContent = "❌ Error: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
